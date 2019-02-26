@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 
 namespace FirstApplication
 {
@@ -26,14 +27,14 @@ namespace FirstApplication
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
-
-            app.UseMvc(routes =>
+            app.Use(async (httpContext, next) =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}/{id?}");
+                httpContext.Response.Headers[HeaderNames.CacheControl] = "no-cache";
+                await next();
             });
+
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
