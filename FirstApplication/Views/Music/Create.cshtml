@@ -11,32 +11,36 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Title)
-                @Html.TextBoxFor(x => x.Title)
-                @Html.ValidationMessageFor(x => x.Title)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Genre)
-                @Html.TextBoxFor(x => x.Genre)
-                @Html.ValidationMessageFor(x => x.Genre)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Origin)
-                @Html.TextBoxFor(x => x.Origin)
-                @Html.ValidationMessageFor(x => x.Origin)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Biography)
-                @Html.TextAreaFor(x => x.Biography)
-                @Html.ValidationMessageFor(x => x.Biography)
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        @using (Html.BeginForm("Create", "Music"))
+        {
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Title)<br />
+                    @Html.TextBoxFor(x => x.Title)
+                    @Html.ValidationMessageFor(x => x.Title)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Genre)<br />
+                    @Html.TextBoxFor(x => x.Genre)
+                    @Html.ValidationMessageFor(x => x.Genre)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Origin)<br />
+                    @Html.TextBoxFor(x => x.Origin)
+                    @Html.ValidationMessageFor(x => x.Origin)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Biography)<br />
+                    @Html.TextAreaFor(x => x.Biography)
+                    @Html.ValidationMessageFor(x => x.Biography)
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        }
+
     </div>
 </div>
 

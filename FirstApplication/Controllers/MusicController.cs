@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstApplication.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FirstApplication.Controllers
 {
@@ -18,7 +20,28 @@ namespace FirstApplication.Controllers
         // GET: Music/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var band = new Band
+            {
+                Title = "new title",
+                Biography = "bio",
+                Genre = "genre",
+                Origin = "origin"
+            };
+
+            return View(band);
+        }
+
+        public JsonResult TestGetBand(int id)
+        {
+            var band = new Band
+            {
+                Title = "test title",
+                Biography = "test bio",
+                Genre = "test genre",
+                Origin = "test origin"
+            };
+
+            return Json(JsonConvert.SerializeObject(band));
         }
 
         // GET: Music/Create
@@ -29,14 +52,12 @@ namespace FirstApplication.Controllers
 
         // POST: Music/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([FromBody]Band band)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {
