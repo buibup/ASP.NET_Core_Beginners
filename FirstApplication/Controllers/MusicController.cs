@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstApplication.Models;
+using FirstApplication.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,10 +12,17 @@ namespace FirstApplication.Controllers
 {
     public class MusicController : Controller
     {
+        private readonly IBandRepository _bandRepository;
+        public MusicController(IBandRepository bandRepository)
+        {
+            _bandRepository = bandRepository;
+        }
+
         // GET: Music
         public ActionResult Index()
         {
-            return View();
+            var bands = _bandRepository.GetBands();
+            return View(bands);
         }
 
         // GET: Music/Details/5
@@ -56,7 +64,10 @@ namespace FirstApplication.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    Console.WriteLine("data is valid");
+                }
                 return View();
             }
             catch
